@@ -23,7 +23,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "allicator-contoso-traders-product",
+      "defaultValue": "contoso-traders-product",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
