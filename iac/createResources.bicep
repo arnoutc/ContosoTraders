@@ -488,7 +488,7 @@ resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   properties: {
     administratorLogin: productsDbServerAdminLogin
     administratorLoginPassword: productsDbServerAdminPassword
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
   }
 
   // sql azure database
@@ -532,7 +532,7 @@ resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   properties: {
     administratorLogin: profilesDbServerAdminLogin
     administratorLoginPassword: profilesDbServerAdminPassword
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
   }
 
   // sql azure database
@@ -878,7 +878,7 @@ resource cognitiveservice 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
   }
   kind: 'CognitiveServices'
   properties: {
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
   }
 }
 
@@ -1162,7 +1162,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
   }
   properties: {
     adminUserEnabled: true
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
   }
 }
 
