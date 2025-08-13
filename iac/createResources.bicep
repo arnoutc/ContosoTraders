@@ -144,7 +144,7 @@ var resourceTags = {
 // key vault
 //
 
-resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
+resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = if (!resourceExists) {
   name: kvName
   location: resourceLocation
   tags: resourceTags
@@ -176,7 +176,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretProductsApiEndpoint 'secrets' = {
+  resource kv_secretProductsApiEndpoint 'secrets' = if (!resourceExists) {
     name: kvSecretNameProductsApiEndpoint
     tags: resourceTags
     properties: {
@@ -186,7 +186,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret 
-  resource kv_secretProductsDbConnStr 'secrets' = {
+  resource kv_secretProductsDbConnStr 'secrets' = if (!resourceExists) {
     name: kvSecretNameProductsDbConnStr
     tags: resourceTags
     properties: {
@@ -196,7 +196,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret 
-  resource kv_secretProfilesDbConnStr 'secrets' = {
+  resource kv_secretProfilesDbConnStr 'secrets' = if (!resourceExists) {
     name: kvSecretNameProfilesDbConnStr
     tags: resourceTags
     properties: {
@@ -206,7 +206,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret 
-  resource kv_secretStocksDbConnStr 'secrets' = {
+  resource kv_secretStocksDbConnStr 'secrets' = if (!resourceExists) {
     name: kvSecretNameStocksDbConnStr
     tags: resourceTags
     properties: {
@@ -216,7 +216,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretCartsApiEndpoint 'secrets' = {
+  resource kv_secretCartsApiEndpoint 'secrets' = if (!resourceExists) {
     name: kvSecretNameCartsApiEndpoint
     tags: resourceTags
     properties: {
@@ -226,7 +226,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretCartsDbConnStr 'secrets' = {
+  resource kv_secretCartsDbConnStr 'secrets' = if (!resourceExists) {
     name: kvSecretNameCartsDbConnStr
     tags: resourceTags
     properties: {
@@ -236,7 +236,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretImagesEndpoint 'secrets' = {
+  resource kv_secretImagesEndpoint 'secrets' = if (!resourceExists) {
     name: kvSecretNameImagesEndpoint
     tags: resourceTags
     properties: {
@@ -246,7 +246,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretCognitiveServicesEndpoint 'secrets' = {
+  resource kv_secretCognitiveServicesEndpoint 'secrets' = if (!resourceExists) {
     name: kvSecretNameCognitiveServicesEndpoint
     tags: resourceTags
     properties: {
@@ -256,7 +256,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretCognitiveServicesAccountKey 'secrets' = {
+  resource kv_secretCognitiveServicesAccountKey 'secrets' = if (!resourceExists) {
     name: kvSecretNameCognitiveServicesAccountKey
     tags: resourceTags
     properties: {
@@ -266,7 +266,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretAppInsightsConnStr 'secrets' = {
+  resource kv_secretAppInsightsConnStr 'secrets' = if (!resourceExists) {
     name: kvSecretNameAppInsightsConnStr
     tags: resourceTags
     properties: {
@@ -276,7 +276,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // secret
-  resource kv_secretUiCdnEndpoint 'secrets' = {
+  resource kv_secretUiCdnEndpoint 'secrets' = if (!resourceExists) {
     name: kvSecretNameUiCdnEndpoint
     tags: resourceTags
     properties: {
@@ -286,7 +286,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 
   // access policies
-  resource kv_accesspolicies 'accessPolicies' = {
+  resource kv_accesspolicies 'accessPolicies' = if (!resourceExists) {
     name: 'replace'
     properties: {
       // @TODO: I was unable to figure out how to assign an access policy to the AKS cluster's agent pool's managed identity.
@@ -311,7 +311,7 @@ resource kv 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-resource userassignedmiforkvaccess 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
+resource userassignedmiforkvaccess 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = if (!resourceExists) {
   name: userAssignedMIForKVAccessName
   location: resourceLocation
   tags: resourceTags
@@ -322,7 +322,7 @@ resource userassignedmiforkvaccess 'Microsoft.ManagedIdentity/userAssignedIdenti
 //
 
 // cosmos db account
-resource stocksdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = {
+resource stocksdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = if (!resourceExists) {
   name: stocksDbAcctName
   location: resourceLocation
   tags: resourceTags
@@ -342,7 +342,7 @@ resource stocksdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = 
   }
 
   // cosmos db database
-  resource stocksdba_db 'sqlDatabases' = {
+  resource stocksdba_db 'sqlDatabases' = if (!resourceExists) {
     name: stocksDbName
     location: resourceLocation
     tags: resourceTags
@@ -353,7 +353,7 @@ resource stocksdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = 
     }
 
     // cosmos db collection
-    resource stocksdba_db_c1 'containers' = {
+    resource stocksdba_db_c1 'containers' = if (!resourceExists) {
       name: stocksDbStocksContainerName
       location: resourceLocation
       tags: resourceTags
@@ -376,7 +376,7 @@ resource stocksdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = 
 //
 
 // cosmos db account
-resource cartsdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = {
+resource cartsdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = if (!resourceExists) {
   name: cartsDbAcctName
   location: resourceLocation
   tags: resourceTags
@@ -396,7 +396,7 @@ resource cartsdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = {
   }
 
   // cosmos db database
-  resource cartsdba_db 'sqlDatabases' = {
+  resource cartsdba_db 'sqlDatabases' = if (!resourceExists) {
     name: cartsDbName
     location: resourceLocation
     tags: resourceTags
@@ -407,7 +407,7 @@ resource cartsdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = {
     }
 
     // cosmos db collection
-    resource cartsdba_db_c1 'containers' = {
+    resource cartsdba_db_c1 'containers' = if (!resourceExists) {
       name: cartsDbStocksContainerName
       location: resourceLocation
       tags: resourceTags
@@ -430,7 +430,7 @@ resource cartsdba 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview' = {
 //
 
 // app service plan (linux)
-resource productsapiappsvcplan 'Microsoft.Web/serverfarms@2022-03-01' = {
+resource productsapiappsvcplan 'Microsoft.Web/serverfarms@2022-03-01' = if (!resourceExists) {
   name: productsApiAppSvcPlanName
   location: resourceLocation
   tags: resourceTags
@@ -444,7 +444,7 @@ resource productsapiappsvcplan 'Microsoft.Web/serverfarms@2022-03-01' = {
 }
 
 // app service
-resource productsapiappsvc 'Microsoft.Web/sites@2022-03-01' = {
+resource productsapiappsvc 'Microsoft.Web/sites@2022-03-01' = if (!resourceExists) {
   name: productsApiAppSvcName
   location: resourceLocation
   tags: resourceTags
@@ -481,7 +481,7 @@ resource productsapiappsvc 'Microsoft.Web/sites@2022-03-01' = {
 //
 
 // sql azure server
-resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
+resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = if (!resourceExists) {
   name: productsDbServerName
   location: resourceLocation
   tags: resourceTags
@@ -502,7 +502,7 @@ resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 
   // sql azure firewall rule (allow access from all azure resources/services)
-  resource productsdbsrv_db_fwlallowazureresources 'firewallRules' = {
+  resource productsdbsrv_db_fwlallowazureresources 'firewallRules' = if (!resourceExists) {
     name: 'AllowAllWindowsAzureIps'
     properties: {
       endIpAddress: '0.0.0.0'
@@ -511,7 +511,7 @@ resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 
   // @TODO: Hack to enable temporary access to devs during local development/debugging.
-  resource productsdbsrv_db_fwllocaldev 'firewallRules' = {
+  resource productsdbsrv_db_fwllocaldev 'firewallRules' = if (!resourceExists) {
     name: 'AllowLocalDevelopment'
     properties: {
       endIpAddress: '255.255.255.255'
@@ -525,7 +525,7 @@ resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
 //
 
 // sql azure server
-resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
+resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = if (!resourceExists) {
   name: profilesDbServerName
   location: resourceLocation
   tags: resourceTags
@@ -536,7 +536,7 @@ resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 
   // sql azure database
-  resource profilesdbsrv_db 'databases' = {
+  resource profilesdbsrv_db 'databases' = if (!resourceExists) {
     name: profilesDbName
     location: resourceLocation
     tags: resourceTags
@@ -546,7 +546,7 @@ resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 
   // sql azure firewall rule (allow access from all azure resources/services)
-  resource profilesdbsrv_db_fwl 'firewallRules' = {
+  resource profilesdbsrv_db_fwl 'firewallRules' = if (!resourceExists) {
     name: 'AllowAllWindowsAzureIps'
     properties: {
       endIpAddress: '0.0.0.0'
@@ -560,7 +560,7 @@ resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
 //
 
 // aca environment
-resource cartsapiacaenv 'Microsoft.App/managedEnvironments@2022-06-01-preview' = {
+resource cartsapiacaenv 'Microsoft.App/managedEnvironments@2022-06-01-preview' = if (!resourceExists) {
   name: cartsApiAcaEnvName
   location: resourceLocation
   tags: resourceTags
@@ -573,7 +573,7 @@ resource cartsapiacaenv 'Microsoft.App/managedEnvironments@2022-06-01-preview' =
 }
 
 // aca
-resource cartsapiaca 'Microsoft.App/containerApps@2022-06-01-preview' = {
+resource cartsapiaca 'Microsoft.App/containerApps@2022-06-01-preview' = if (!resourceExists) {
   name: cartsApiAcaName
   location: resourceLocation
   tags: resourceTags
@@ -660,7 +660,7 @@ resource cartsapiaca 'Microsoft.App/containerApps@2022-06-01-preview' = {
 //
 
 // storage account (product images)
-resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!resourceExists) {
   name: productImagesStgAccName
   location: resourceLocation
   tags: resourceTags
@@ -670,11 +670,11 @@ resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'StorageV2'
 
   // blob service
-  resource productimagesstgacc_blobsvc 'blobServices' = {
+  resource productimagesstgacc_blobsvc 'blobServices' = if (!resourceExists) {
     name: 'default'
 
     // container
-    resource productimagesstgacc_blobsvc_productdetailscontainer 'containers' = {
+    resource productimagesstgacc_blobsvc_productdetailscontainer 'containers' = if (!resourceExists) {
       name: productImagesProductDetailsContainerName
       properties: {
         publicAccess: 'Container'
@@ -682,7 +682,7 @@ resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
     }
 
     // container
-    resource productimagesstgacc_blobsvc_productlistcontainer 'containers' = {
+    resource productimagesstgacc_blobsvc_productlistcontainer 'containers' = if (!resourceExists) {
       name: productImagesProductListContainerName
       properties: {
         publicAccess: 'Container'
@@ -697,7 +697,7 @@ resource productimagesstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
 //
 
 // storage account (main website)
-resource uistgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource uistgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!resourceExists) {
   name: uiStgAccName
   location: resourceLocation
   tags: resourceTags
@@ -707,12 +707,12 @@ resource uistgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'StorageV2'
 
   // blob service
-  resource uistgacc_blobsvc 'blobServices' = {
+  resource uistgacc_blobsvc 'blobServices' = if (!resourceExists) {
     name: 'default'
   }
 }
 
-resource uistgacc_mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
+resource uistgacc_mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = if (!resourceExists) {
   name: 'DeploymentScript'
   location: resourceLocation
   tags: resourceTags
@@ -728,7 +728,7 @@ resource uistgacc_roledefinition 'Microsoft.Authorization/roleDefinitions@2022-0
 // @TODO: Unfortunately, this requires the service principal to be in the owner role for the subscription.
 // This is just a temporary mitigation, and needs to be fixed using a custom role.
 // Details: https://learn.microsoft.com/en-us/answers/questions/287573/authorization-failed-when-when-writing-a-roleassig.html
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!resourceExists) {
   scope: uistgacc
   name: guid(resourceGroup().id, uistgacc_mi.id, uistgacc_roledefinition.id)
   properties: {
@@ -738,7 +738,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
-resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = if (!resourceExists) {
   name: 'DeploymentScript'
   location: resourceLocation
   kind: 'AzurePowerShell'
@@ -771,7 +771,7 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
 }
 
 // storage account (new website)
-resource ui2stgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource ui2stgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!resourceExists) {
   name: ui2StgAccName
   location: resourceLocation
   tags: resourceTags
@@ -786,7 +786,7 @@ resource ui2stgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   }
 }
 
-resource ui2stgacc_mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
+resource ui2stgacc_mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = if (!resourceExists) {
   name: 'DeploymentScript2'
   location: resourceLocation
   tags: resourceTags
@@ -795,7 +795,7 @@ resource ui2stgacc_mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-
 // @TODO: Unfortunately, this requires the service principal to be in the owner role for the subscription.
 // This is just a temporary mitigation, and needs to be fixed using a custom role.
 // Details: https://learn.microsoft.com/en-us/answers/questions/287573/authorization-failed-when-when-writing-a-roleassig.html
-resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (!resourceExists) {
   scope: ui2stgacc
   name: guid(resourceGroup().id, ui2stgacc_mi.id, uistgacc_roledefinition.id)
   properties: {
@@ -805,7 +805,7 @@ resource roleAssignment2 'Microsoft.Authorization/roleAssignments@2022-04-01' = 
   }
 }
 
-resource deploymentScript2 'Microsoft.Resources/deploymentScripts@2020-10-01' = {
+resource deploymentScript2 'Microsoft.Resources/deploymentScripts@2020-10-01' = if (!resourceExists) {
   name: 'DeploymentScript2'
   location: resourceLocation
   kind: 'AzurePowerShell'
@@ -842,7 +842,7 @@ resource deploymentScript2 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
 //
 
 // storage account (main website)
-resource imageclassifierstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+resource imageclassifierstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = if (!resourceExists) {
   name: imageClassifierStgAccName
   location: resourceLocation
   tags: resourceTags
@@ -852,11 +852,11 @@ resource imageclassifierstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = 
   kind: 'StorageV2'
 
   // blob service
-  resource imageclassifierstgacc_blobsvc 'blobServices' = {
+  resource imageclassifierstgacc_blobsvc 'blobServices' = if (!resourceExists) {
     name: 'default'
 
     // container
-    resource uistgacc_blobsvc_websiteuploadscontainer 'containers' = {
+    resource uistgacc_blobsvc_websiteuploadscontainer 'containers' = if (!resourceExists) {
       name: imageClassifierWebsiteUploadsContainerName
       properties: {
         publicAccess: 'Container'
@@ -869,7 +869,7 @@ resource imageclassifierstgacc 'Microsoft.Storage/storageAccounts@2022-05-01' = 
 // cognitive services (image recognition)
 // 
 
-resource cognitiveservice 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
+resource cognitiveservice 'Microsoft.CognitiveServices/accounts@2022-10-01' = if (!resourceExists) {
   name: cognitiveServiceName
   location: resourceLocation
   tags: resourceTags
@@ -886,7 +886,7 @@ resource cognitiveservice 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
 // cdn
 //
 
-resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
+resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = if (!resourceExists) {
   name: cdnProfileName
   location: 'global'
   tags: resourceTags
@@ -896,7 +896,7 @@ resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
 }
 
 // endpoint (product images)
-resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = if (!resourceExists) {
   name: cdnImagesEndpointName
   location: 'global'
   tags: resourceTags
@@ -939,7 +939,7 @@ resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-
 }
 
 // endpoint (ui / old website)
-resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = if (!resourceExists) {
   name: cdnUiEndpointName
   location: 'global'
   tags: resourceTags
@@ -1022,7 +1022,7 @@ resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-prev
 }
 
 // endpoint (ui / new website)
-resource cdnprofile_ui2endpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_ui2endpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = if (!resourceExists) {
   name: cdnUi2EndpointName
   location: 'global'
   tags: resourceTags
@@ -1136,7 +1136,7 @@ resource cdnprofile_ui2endpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-pre
 // redis cache
 //
 
-resource rediscache 'Microsoft.Cache/redis@2022-06-01' = {
+resource rediscache 'Microsoft.Cache/redis@2022-06-01' = if (!resourceExists) {
   name: redisCacheName
   location: resourceLocation
   tags: resourceTags
@@ -1153,7 +1153,7 @@ resource rediscache 'Microsoft.Cache/redis@2022-06-01' = {
 // container registry
 //
 
-resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
+resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = if (!resourceExists) {
   name: acrName
   location: resourceLocation
   tags: resourceTags
@@ -1170,7 +1170,7 @@ resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
 // load testing service
 //
 
-resource loadtestsvc 'Microsoft.LoadTestService/loadTests@2022-12-01' = {
+resource loadtestsvc 'Microsoft.LoadTestService/loadTests@2022-12-01' = if (!resourceExists) {
   name: loadTestSvcName
   location: resourceLocation
   tags: resourceTags
@@ -1188,7 +1188,7 @@ resource loadtestsvc 'Microsoft.LoadTestService/loadTests@2022-12-01' = {
 //
 
 // log analytics workspace
-resource loganalyticsworkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+resource loganalyticsworkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = if (!resourceExists) {
   name: logAnalyticsWorkspaceName
   location: resourceLocation
   tags: resourceTags
@@ -1202,7 +1202,7 @@ resource loganalyticsworkspace 'Microsoft.OperationalInsights/workspaces@2022-10
 }
 
 // app insights instance
-resource appinsights 'Microsoft.Insights/components@2020-02-02' = {
+resource appinsights 'Microsoft.Insights/components@2020-02-02' = if (!resourceExists) {
   name: appInsightsName
   location: resourceLocation
   tags: resourceTags
@@ -1217,7 +1217,7 @@ resource appinsights 'Microsoft.Insights/components@2020-02-02' = {
 // portal dashboard
 //
 
-resource dashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
+resource dashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = if (!resourceExists) {
   name: portalDashboardName
   location: resourceLocation
   tags: resourceTags
@@ -1244,7 +1244,7 @@ resource dashboard 'Microsoft.Portal/dashboards@2020-09-01-preview' = {
 // aks cluster
 //
 
-resource aks 'Microsoft.ContainerService/managedClusters@2022-11-01' = {
+resource aks 'Microsoft.ContainerService/managedClusters@2022-11-01' = if (!resourceExists) {
   name: aksClusterName
   location: resourceLocation
   tags: resourceTags
