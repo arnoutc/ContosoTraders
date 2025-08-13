@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  KV_NAME: contosotraderskvprod
+  KV_NAME: catorcontosotraderskv
   LOAD_TEST_SERVICE_NAME: contoso-traders-loadtest
   RESOURCE_GROUP_NAME: contoso-traders-rg
 
