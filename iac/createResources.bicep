@@ -497,6 +497,7 @@ resource productsdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
     location: resourceLocation
     tags: resourceTags
     sku: {
+      capacity: 1
       tier: 'Basic'
       name: 'Basic'
     }
@@ -542,6 +543,7 @@ resource profilesdbsrv 'Microsoft.Sql/servers@2022-05-01-preview' = {
     location: resourceLocation
     tags: resourceTags
     sku: {
+      capacity: 1
       tier: 'Basic'
       name: 'Basic'
     }
