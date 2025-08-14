@@ -25,7 +25,7 @@ env:
   AKS_SECRET_NAME_MI_CLIENTID: contoso-traders-mi-clientid
   CARTS_ACA_NAME: contoso-traders-carts
   CARTS_ACR_REPOSITORY_NAME: contosotradersapicarts
-  CDN_PROFILE_NAME: contoso-traders-cdn
+  CDN_PROFILE_NAME: cator-contoso-traders-cdn
   SUB_DEPLOYMENT_REGION: uksouth
   KV_NAME: contosotraderskv
   PRODUCTS_ACR_REPOSITORY_NAME: contosotradersapiproducts
@@ -82,6 +82,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            az account set --subscription "38c3516e-90b1-47fc-b876-f1ae17939871"
             az keyvault set-policy -n ${{ env.KV_NAME }}${{ secrets.ENVIRONMENT }} --secret-permissions get list set --object-id $(az ad sp show --id $(az account show --query "user.name" -o tsv) --query "id" -o tsv)
       # The AKS agent pool needs to be assigned the user-assigned managed identity created (which has kv access)
       - name: assign user-assigned managed-identity to aks agentpool
