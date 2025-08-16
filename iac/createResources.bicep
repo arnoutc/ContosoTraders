@@ -896,7 +896,7 @@ resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
 }
 
 // endpoint (product images)
-resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/afdendpoints@2025-04-15' = {
   name: cdnImagesEndpointName
   location: 'global'
   tags: resourceTags
@@ -939,7 +939,7 @@ resource cdnprofile_imagesendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-
 }
 
 // endpoint (ui / old website)
-resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/afdendpoints@2025-04-15' = {
   name: cdnUiEndpointName
   location: 'global'
   tags: resourceTags
@@ -1022,7 +1022,7 @@ resource cdnprofile_uiendpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-prev
 }
 
 // endpoint (ui / new website)
-resource cdnprofile_ui2endpoint 'Microsoft.Cdn/profiles/endpoints@2022-05-01-preview' = {
+resource cdnprofile_ui2endpoint 'Microsoft.Cdn/profiles/afdendpoints@2025-04-15' = {
   name: cdnUi2EndpointName
   location: 'global'
   tags: resourceTags
