@@ -24,7 +24,7 @@ param aksLinuxAdminUsername string // value supplied via parameters file
 
 param prefix string = 'contosotraders'
 
-param prefixHyphenated string = 'cator-contoso-traders'
+param prefixHyphenated string = 'contoso-traders'
 
 // sql
 param sqlServerHostName string = environment().suffixes.sqlServerHostname
