@@ -891,7 +891,7 @@ resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
   location: 'global'
   tags: resourceTags
   sku: {
-    name: 'Standard_Microsoft'
+    name: 'Standard_AzureFrontDoor'
   }
 }
 
