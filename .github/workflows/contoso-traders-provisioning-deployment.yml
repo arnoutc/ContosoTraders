@@ -241,7 +241,10 @@ jobs:
       - name: set dns label on public ip
         uses: azure/CLI@v1
         with:
-          inlineScript: az network public-ip update --dns-name ${{ env.AKS_DNS_LABEL }}${{ secrets.ENVIRONMENT }} -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} -n $(az network public-ip list --query "[?starts_with(name,'kubernetes-') ].name" -o tsv -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }})
+          inlineScript: |
+            PUBLIC_IP_NAME=$(az network public-ip list --query "[?starts_with(name,'kubernetes-')].name" -o tsv -g "$AKS_NODES_RESOURCE_GROUP_NAME") 
+            echo 'Resolved PUBLIC_IP_NAME: $PUBLIC_IP_NAME'
+            az network public-ip update --dns-name ${{ env.AKS_DNS_LABEL }}${{ secrets.ENVIRONMENT }} -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} -n $(az network public-ip list --query "[?starts_with(name,'kubernetes-') ].name" -o tsv -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }}) --debug
       # hack: extract the full fqdn / dns label of the aks app's public IP address
       - name: get aks-fqdn
         uses: azure/CLI@v1
