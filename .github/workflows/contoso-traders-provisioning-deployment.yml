@@ -25,7 +25,7 @@ env:
   AKS_SECRET_NAME_MI_CLIENTID: contoso-traders-mi-clientid
   CARTS_ACA_NAME: contoso-traders-carts
   CARTS_ACR_REPOSITORY_NAME: contosotradersapicarts
-  CDN_PROFILE_NAME: contoso-traders-cdn
+  CDN_PROFILE_NAME: cator-contoso-traders-cdn
   SUB_DEPLOYMENT_REGION: uksouth
   KV_NAME: contosotraderskv
   PRODUCTS_ACR_REPOSITORY_NAME: contosotradersapiproducts
