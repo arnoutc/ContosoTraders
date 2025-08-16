@@ -242,8 +242,8 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            PUBLIC_IP_NAME=$(az network public-ip list --query "[?starts_with(name,'kubernetes-')].name" -o tsv -g "$AKS_NODES_RESOURCE_GROUP_NAME") 
-            echo 'Resolved PUBLIC_IP_NAME: $PUBLIC_IP_NAME'
+            PUBLIC_IP_NAME=$(az network public-ip list --query "[?starts_with(name,'kubernetes-')].name" -o tsv) | echo "Resolved PUBLIC_IP_NAME: $PUBLIC_IP_NAME"
+            az account set --subscription "38c3516e-90b1-47fc-b876-f1ae17939871"
             az network public-ip update --dns-name ${{ env.AKS_DNS_LABEL }}${{ secrets.ENVIRONMENT }} -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} -n $(az network public-ip list --query "[?starts_with(name,'kubernetes-') ].name" -o tsv -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }}) --debug
       # hack: extract the full fqdn / dns label of the aks app's public IP address
       - name: get aks-fqdn
