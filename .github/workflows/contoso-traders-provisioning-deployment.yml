@@ -18,7 +18,7 @@ env:
   # metadata will be stored, and not where the resource groups will be deployed.
   ACR_NAME: contosotradersacr
   AKS_CLUSTER_NAME: contoso-traders-aks
-  AKS_DNS_LABEL: contoso-traders-products
+  AKS_DNS_LABEL: cator-contoso-traders-products
   AKS_NODES_RESOURCE_GROUP_NAME: contoso-traders-aks-nodes-rg
   AKS_SECRET_NAME_ACR_PASSWORD: contoso-traders-acr-password
   AKS_SECRET_NAME_KV_ENDPOINT: contoso-traders-kv-endpoint
@@ -35,7 +35,7 @@ env:
   PRODUCT_DETAILS_CONTAINER_NAME: product-details
   PRODUCT_IMAGES_STORAGE_ACCOUNT_NAME: contosotradersimg
   PRODUCT_LIST_CONTAINER_NAME: product-list
-  PRODUCTS_CDN_ENDPOINT_NAME: contoso-traders-images
+  PRODUCTS_CDN_ENDPOINT_NAME: cator-contoso-traders-images
   RESOURCE_GROUP_NAME: contoso-traders-rg
   STORAGE_ACCOUNT_NAME: contosotradersimg
   UI_CDN_ENDPOINT_NAME: contoso-traders-ui2

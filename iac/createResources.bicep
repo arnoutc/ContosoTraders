@@ -886,7 +886,7 @@ resource cognitiveservice 'Microsoft.CognitiveServices/accounts@2022-10-01' = {
 // cdn
 //
 
-resource cdnprofile 'Microsoft.Cdn/profiles@2022-05-01-preview' = {
+resource cdnprofile 'Microsoft.Cdn/profiles/afdendpoints@2025-04-15' = {
   name: cdnProfileName
   location: 'global'
   tags: resourceTags
