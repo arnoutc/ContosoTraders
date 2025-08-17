@@ -356,7 +356,9 @@ jobs:
           CARTS_API_ENDPOINT: ${{ steps.get-cartsApiEndpoint.outputs.cartsApiEndpoint }}
           PRODUCTS_API_ENDPOINT: ${{ steps.get-productsApiEndpoint.outputs.productsApiEndpoint }}
       - name: npm install
-        run: npm install
+        run: |
+          npm install
+          npm install react-scripts@latest
         working-directory: src/ContosoTraders.Ui.Website
       - name: npm run build
         run: npm run build
