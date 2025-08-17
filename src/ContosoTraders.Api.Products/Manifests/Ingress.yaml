@@ -3,12 +3,12 @@ kind: Ingress
 metadata:
   name: contoso-traders-products
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: letsencrypt
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         #Note: The '{AKS_FQDN}' token will be substituted with the actual DNS label of the ingress controller's public IP by github workflow.
@@ -20,7 +20,7 @@ spec:
       http:
         paths:
           - path: /(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: contoso-traders-products
