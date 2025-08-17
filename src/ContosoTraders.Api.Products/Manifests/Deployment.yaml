@@ -12,6 +12,7 @@ spec:
       labels:
         app: contoso-traders-products
     spec:
+      serviceAccountName: contoso-trader-sa
       nodeSelector:
         "kubernetes.io/os": linux
       containers:

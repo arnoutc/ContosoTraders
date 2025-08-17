@@ -194,6 +194,11 @@ jobs:
         id: get-managedIdentityClientId
         with:
           inlineScript: echo "managedIdentityClientId"="$(az identity show -g ${{ env.RESOURCE_GROUP_NAME }} --name ${{ env.USER_ASSIGNED_MANAGED_IDENTITY_NAME }}${{ secrets.ENVIRONMENT }} --query "clientId" -o tsv)" >> $GITHUB_OUTPUT
+      - name: apply serviceaccount manifest
+        uses: Azure/k8s-deploy@v4
+        with:
+          manifests: ./src/ContosoTraders.Api.Products/Manifests/ServiceAccount.yaml
+          force: true
       - name: create kubernetes secret (kv endpoint)
         uses: Azure/k8s-create-secret@v3.0
         with:
