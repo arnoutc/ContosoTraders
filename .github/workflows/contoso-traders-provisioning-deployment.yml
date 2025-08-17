@@ -38,7 +38,7 @@ env:
   PRODUCTS_CDN_ENDPOINT_NAME: contoso-traders-images
   RESOURCE_GROUP_NAME: contoso-traders-rg
   STORAGE_ACCOUNT_NAME: contosotradersimg
-  UI_CDN_ENDPOINT_NAME: catora-contoso-traders-ui2
+  UI_CDN_ENDPOINT_NAME: contoso-traders-ui2
   UI_STORAGE_ACCOUNT_NAME: contosotradersui2
   USER_ASSIGNED_MANAGED_IDENTITY_NAME: contoso-traders-mi-kv-access
 
@@ -110,9 +110,11 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az account set --subscription 38c3516e-90b1-47fc-b876-f1ae17939871
-            az cdn endpoint purge --no-wait --content-paths '/*' -n '${{ env.PRODUCTS_CDN_ENDPOINT_NAME }}${{ secrets.ENVIRONMENT }}' -g '${{ env.RESOURCE_GROUP_NAME }}' --profile-name '${{ env.CDN_PROFILE_NAME }}${{ secrets.ENVIRONMENT }}'
-
+            az afd endpoint purge \
+              --profile-name '${{ env.CDN_PROFILE_NAME }}${{ secrets.ENVIRONMENT }}' \
+              --endpoint-name '${{ env.PRODUCTS_CDN_ENDPOINT_NAME }}${{ secrets.ENVIRONMENT }}' \
+              --resource-group '${{ env.RESOURCE_GROUP_NAME }}' \
+              --content-paths '/*'
   deploy-carts-api:
     runs-on: ubuntu-latest
     needs: provision-infrastructure
@@ -349,4 +351,9 @@ jobs:
       - name: purge CDN endpoint
         uses: azure/CLI@v1
         with:
-          inlineScript: az cdn endpoint purge --no-wait --content-paths '/*' -n '${{ env.UI_CDN_ENDPOINT_NAME }}${{ secrets.ENVIRONMENT }}' -g '${{ env.RESOURCE_GROUP_NAME }}' --profile-name '${{ env.CDN_PROFILE_NAME }}${{ secrets.ENVIRONMENT }}'
+          inlineScript: |
+            az afd endpoint purge \
+              --profile-name '${{ env.CDN_PROFILE_NAME }}${{ secrets.ENVIRONMENT }}' \
+              --endpoint-name '${{ env.UI_CDN_ENDPOINT_NAME }}${{ secrets.ENVIRONMENT }}' \
+              --resource-group '${{ env.RESOURCE_GROUP_NAME }}' \
+              --content-paths '/*'
