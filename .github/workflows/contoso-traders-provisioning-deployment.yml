@@ -251,11 +251,23 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            set -e
             PUBLIC_IP_NAME=$(az network public-ip list --query "[?starts_with(name,'kubernetes-')].name" -o tsv); echo "Resolved PUBLIC_IP_NAME: $PUBLIC_IP_NAME"
             echo "env.AKS_DNS_LABEL is: ${{ env.AKS_DNS_LABEL}}"
             echo "secrets.ENVIRONMENT is: ${{ secrets.ENVIRONMENT }}"
             echo "env.AKS_NODES_RESOURCE_GROUP_NAME is: ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }}"
-            az network public-ip update --dns-name ${{ env.AKS_DNS_LABEL }}${{ secrets.ENVIRONMENT }} -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} -n $(az network public-ip list --query "[?starts_with(name,'kubernetes-') ].name" -o tsv -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }}) --debug
+
+            set +e  # Disable exit on error
+            az network public-ip update \
+              --dns-name ${{ env.AKS_DNS_LABEL }}${{ secrets.ENVIRONMENT }} \
+              -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }} \
+              -n $(az network public-ip list --query "[?starts_with(name,'kubernetes-') ].name" \
+              -o tsv -g ${{ env.AKS_NODES_RESOURCE_GROUP_NAME }})
+            STATUS=$?
+            if [ $STATUS -ne 0 ]; then
+              echo "Warning: DNS label update failed, but continuing pipeline."
+            fi
+            set -e  # Re-enable exit on error if you have more critical steps later
       # hack: extract the full fqdn / dns label of the aks app's public IP address
       - name: get aks-fqdn
         uses: azure/CLI@v1
