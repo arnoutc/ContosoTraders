@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Route, withRouter, Switch } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { CartService } from "./services";
 import Meeting from './pages/home/components/videoCall/Meeting';
-
 import { Header, Footer, Appbar, HeaderMessage } from "./shared";
 import {
   Home,
@@ -20,20 +19,18 @@ import {
   ErrorPage,
   Cart,
 } from "./pages";
-
 import "./i18n";
 import "./main.scss";
 import warningIcon from './assets/images/original/Contoso_Assets/Icons/information_icon.svg'
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       shoppingCart: [],
       quantity: null,
     };
   }
-
   async componentDidMount() {
     if (this.props.userInfo.token) {
       const shoppingCart = await CartService.getShoppingCart(
@@ -43,7 +40,6 @@ class App extends Component {
         this.setState({ shoppingCart });
       }
     }
-
     if (this.state.shoppingCart != null) {
       const quantity = this.state.shoppingCart.reduce(
         (oldQty, { qty }) => oldQty + qty,
@@ -52,80 +48,66 @@ class App extends Component {
       this.setState({ quantity });
     }
   }
-
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.location.pathname !== prevProps.location.pathname){
+    // location comes from wrapper now
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       window.scrollTo(0, 0);
     }
   }
-
   ShoppingCart = (quantity) => {
     this.setState({ quantity });
   };
-
   sumProductInState = () => {
     this.setState((prevState) => {
       return { quantity: prevState.quantity + 1 };
     });
   };
 
+  // PrivateRoute logic for v6
+  requireAuth = (element) => {
+    return this.props.userInfo.loggedIn === true ? element : <Navigate to="/" />;
+  };
+
   render() {
     const { quantity } = this.state;
 
-    const PrivateRoute = ({ component: Component, ...rest }) => (
-      <Route
-        {...rest}
-        render={(props) =>
-          this.props.userInfo.loggedIn === true ? (
-            <Component {...props} {...rest} />
-          ) : (
-            this.props.history.push('/')
-          )
-        }
-      />
-    );
+    const detailProps = {
+      sumProductInState: this.sumProductInState
+    };
 
     return (
       <div className="App">
         <Fragment>
           <div className="mainHeader">
-            <HeaderMessage type="warning" icon={warningIcon} message="This Is A Demo Store For Testing Purposes — No Orders Shall Be Fulfilled."/>
+            <HeaderMessage type="warning" icon={warningIcon} message="This Is A Demo Store For Testing Purposes — No Orders Shall Be Fulfilled." />
             <Appbar quantity={quantity} />
-            {this.props.history.location.pathname === '/' || this.props.history.location.pathname === '/new-arrivals' ?
-              <Header quantity={quantity} />
-              :
-              <div id="box"></div>}
+            {this.props.location.pathname === '/' || this.props.location.pathname === '/new-arrivals'
+              ? <Header quantity={quantity} />
+              : <div id="box"></div>}
           </div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/new-arrivals" component={Arrivals} />
-            <Route exact path="/meeting" component={Meeting} />
-            <Route exact path="/list" component={List} />
-            <Route exact path="/list/:code" component={List} />
-            <Route
-              path="/suggested-products-list"
-              component={SuggestedProductsList}
-            />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/new-arrivals" element={<Arrivals />} />
+            <Route path="/meeting" element={<Meeting />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/list/:code" element={<List />} />
+            <Route path="/suggested-products-list" element={<SuggestedProductsList />} />
             <Route
               path="/product/detail/:productId"
-              render={(props) => (
-                <Detail sumProductInState={this.sumProductInState} {...props} />
-              )}
+              element={<Detail {...detailProps} />}
             />
-            <Route path="/refund-policy" component={RefundPolicy} />
-            <Route path="/terms-of-service" component={TermsOfService} />
-            <Route path="/about-us" component={AboutUs} />
-            <PrivateRoute path="/coupons" component={MyCoupons} />
-            <PrivateRoute path="/profile/:page" component={Profile} />
-            <PrivateRoute path="/cart" component={Cart}/>
-            <PrivateRoute
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/coupons" element={this.requireAuth(<MyCoupons />)} />
+            <Route path="/profile/:page" element={this.requireAuth(<Profile />)} />
+            <Route path="/cart" element={this.requireAuth(<Cart />)} />
+            <Route
               path="/shopping-cart"
-              component={ShoppingCart}
-              ShoppingCart={this.ShoppingCart}
-              quantity={this.state.quantity}
+              element={this.requireAuth(<ShoppingCart ShoppingCart={this.ShoppingCart} quantity={this.state.quantity} />)}
             />
-            <Route path="*" component={ErrorPage} />
-          </Switch>
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
           <Footer />
         </Fragment>
       </div>
@@ -135,4 +117,10 @@ class App extends Component {
 
 const mapStateToProps = (state) => state.login;
 
-export default withRouter(connect(mapStateToProps)(App));
+function AppWrapper(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  return <App {...props} location={location} navigate={navigate} />;
+}
+
+export default connect(mapStateToProps)(AppWrapper);

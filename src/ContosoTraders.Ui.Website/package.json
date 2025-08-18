@@ -17,17 +17,21 @@
     "@mui/icons-material": "^7.3.1",
     "@mui/material": "^7.3.1",
     "axios": "^1.11.0",
+    "buffer": "^6.0.3",
     "dotenv": "^17.2.1",
     "formik": "^2.2.9",
     "history": "^5.3.0",
     "i18next": "^23.2.3",
     "izitoast": "^1.4.0",
     "msal": "^1.4.10",
+    "mui-file-input": "^7.0.0",
+    "notistack": "^3.0.2",
     "prop-types": "^15.8.1",
     "qs": "^6.10.1",
     "query-string": "latest",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.3.8",
     "react-i18next": "^14.0.1",
     "react-material-ui-carousel": "^3.4.2",
     "react-redux": "^9.2.0",
@@ -35,13 +39,14 @@
     "react-scripts": "~5.0.1",
     "react-scroll": "^1.8.2",
     "redux": "^5.0.1",
+    "sass": "^1.90.0",
     "typescript": "^4.9.5",
     "yup": "^1.7.0"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=8000 start",
-    "build": "react-scripts --max_old_space_size=8000 build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -55,6 +60,11 @@
   ],
   "devDependencies": {
     "@playwright/test": "^1.29.0",
-    "eslint-config-react-app": "latest"
+    "crypto-browserify": "^3.12.1",
+    "eslint-config-react-app": "latest",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NamespacesConsumer } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import SidebarAccordion from "./components/sidebaraccordion";
 class ListAside extends Component {
     constructor() {
@@ -54,42 +54,39 @@ class ListAside extends Component {
     }
 
     render() {
+        const { t } = this.props; // now t is available via props
         return (
-            <NamespacesConsumer>
-                {t => (
-                    <aside className="list__aside">
-                        <SidebarAccordion 
+            <aside className="list__aside">
+                <SidebarAccordion 
+                    onFilterChecked={this.props.onFilterChecked}
+                    data={this.props.brandsList}
+                    title="Brands"
+                    id="brand"
+                />
+                {/* {this.state.showComponent && (
+                    <div className={ this.state.isopened ? "list__panel is-opened" : "list__panel" } ref={this.filterPanel}>
+                        <CheckboxContainer
                             onFilterChecked={this.props.onFilterChecked}
-                            data={this.props.brandsList}
+                            data={typesList}
+                            title="Cordless Power Tools"
+                            id="type"
+                        />
+
+                        <CheckboxContainer
+                            onFilterChecked={this.props.onFilterChecked}
+                            data={brandsList}
                             title="Brands"
                             id="brand"
                         />
-                        {/* {this.state.showComponent && (
-                            <div className={ this.state.isopened ? "list__panel is-opened" : "list__panel" } ref={this.filterPanel}>
-                                <CheckboxContainer
-                                    onFilterChecked={this.props.onFilterChecked}
-                                    data={typesList}
-                                    title="Cordless Power Tools"
-                                    id="type"
-                                />
 
-                                <CheckboxContainer
-                                    onFilterChecked={this.props.onFilterChecked}
-                                    data={brandsList}
-                                    title="Brands"
-                                    id="brand"
-                                />
-
-                                <button className="btn btn--primary" onClick={this.toggleClass}>
-                                    {t("list.aside.close")}
-                                </button>
-                            </div>
-                        )} */}
-                    </aside>
-                )}
-            </NamespacesConsumer>
+                        <button className="btn btn--primary" onClick={this.toggleClass}>
+                            {t("list.aside.close")}
+                        </button>
+                    </div>
+                )} */}
+            </aside>
         );
     }
 }
 
-export default ListAside;
+export default withTranslation()(ListAside);

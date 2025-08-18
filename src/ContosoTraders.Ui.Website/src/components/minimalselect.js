@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import minimalSelectStyles from './minimalSelect.styles';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { ExpandMore } from '@mui/icons-material';
 
 const MinimalSelect = () => {
   const [val,setVal] = useState(1);
@@ -15,7 +15,7 @@ const MinimalSelect = () => {
 
   const iconComponent = (props) => {
     return (
-      <ExpandMoreIcon className={props.className + " " + minimalSelectClasses.icon}/>
+      <ExpandMore className={props.className + " " + minimalSelectClasses.icon}/>
     )};
 
 

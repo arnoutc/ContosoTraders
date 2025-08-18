@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import chatIcon from "../../../../assets/images/chat-bubble-icon.svg";
-import { withRouter } from "react-router-dom";
 import axios from "axios";
 import callIcon from "../../../../assets/images/icon-call.svg";
 import "./chatBubble.css";
 import { ConfigService } from "./../../../../services"
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+
+// wrapper function component that injects hooks
+function ChatBubbleWrapper(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  return <ChatBubble {...props} navigate={navigate} location={location} params={params} />;
+}
 
 class ChatBubble extends Component {
   constructor(props) {
@@ -49,7 +57,7 @@ class ChatBubble extends Component {
   };
 
   naviagateTo = (location) => {
-    this.props.history.push(location);
+    this.props.navigate(location);
   };
 
   render() {
@@ -220,4 +228,4 @@ class ChatBubble extends Component {
   }
 }
 
-export default withRouter(ChatBubble);
+export default ChatBubbleWrapper;

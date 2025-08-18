@@ -1,9 +1,9 @@
+import { useSnackbar } from 'notistack';
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
 
 import { animateScroll as scroll } from "react-scroll";
 import { LoadingSpinner } from "../../shared";
-import Alert from "react-s-alert";
 
 // import Detail from "./detail";
 import { CartService, ProductService } from '../../services';
@@ -75,20 +75,17 @@ class DetailContainer extends Component {
     }
 
     showSuccesMessage(data) {
-        Alert.success(data.message, {
-            position: "top",
-            effect: "scale",
-            beep: true,
-            timeout: 1500,
+        this.props.enqueueSnackbar(data.message, { 
+            variant: 'success', 
+            anchorOrigin: { vertical: 'top', horizontal: 'center' }, 
+            autoHideDuration: 1500,
         });
     }
-
     showErrorMessage(data) {
-        Alert.error(data.errMessage, {
-            position: "top",
-            effect: "scale",
-            beep: true,
-            timeout: 3000,
+        this.props.enqueueSnackbar(data.errMessage, { 
+            variant: 'error', 
+            anchorOrigin: { vertical: 'top', horizontal: 'center' }, 
+            autoHideDuration: 3000,
         });
     }
 
@@ -98,7 +95,6 @@ class DetailContainer extends Component {
         return (
             <Fragment>
                 <div className="ProductContainerSection">
-                    <Alert stack={{ limit: 1 }} />
                     <Breadcrump parentPath='Products' parentUrl="/list/all-products" currentPath={detailProduct.name} />
                     {loading ? <LoadingSpinner /> :
                         <ProductDetails
@@ -118,6 +114,12 @@ class DetailContainer extends Component {
     }
 }
 
+// Wrapper function to inject enqueueSnackbar
+function DetailContainerWrapper(props) {
+    const { enqueueSnackbar } = useSnackbar();
+    return <DetailContainer {...props} enqueueSnackbar={enqueueSnackbar} />;
+}
+
 const mapStateToProps = state => state.login;
 
-export default connect(mapStateToProps)(DetailContainer);
+export default connect(mapStateToProps)(DetailContainerWrapper);

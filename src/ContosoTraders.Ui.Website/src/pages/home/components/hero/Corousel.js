@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Button, Grid } from '@material-ui/core'
+import { Button, Grid } from '@mui/material'
 import LocalMallIcon from '../../../../assets/images/original/Contoso_Assets/Icons/cart-icon-copy.svg'
 import heroBg from '../../../../assets/images/original/Contoso_Assets/Slider_section/hero_banner.jpg'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export default function Corousel(props)
 {
     var items = [
@@ -66,12 +66,12 @@ export default function Corousel(props)
 
 function Item(props)
 {
-    const history = useHistory()
+    const navigate = useNavigate()
     const buyNow = (id) => {
-        history.push('/product/detail/'+id)
+        navigate('/product/detail/'+id)
     }
     const moreDetails = () => {
-        history.push('/list/controllers')
+        navigate('/list/controllers')
     }
     return (
         <div className="courousel-style" style={{ backgroundImage: 'url('+props.item.bg+')'}}>

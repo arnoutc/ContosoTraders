@@ -1,5 +1,5 @@
 import React from "react";
-import { Renderer } from "@azure/communication-calling";
+import { VideoStreamRenderer } from "@azure/communication-calling";
 export default class StreamMedia extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +22,7 @@ export default class StreamMedia extends React.Component {
         });
 
         console.log('StreamMedia', this.stream, this.id);
-        let renderer = new Renderer(this.stream);
+        let renderer = new VideoStreamRenderer(this.stream);
         let view;
         let videoContainer;
 

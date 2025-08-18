@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { NamespacesConsumer } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import Corousel from "./Corousel";
 class Hero extends Component {
@@ -10,16 +10,14 @@ class Hero extends Component {
     }
 
     render() {
+        // t is injected into props by withTranslation
+        const { t } = this.props;
         return (
-            <NamespacesConsumer>
-                {t => (
-                    <div className="hero">
-                        <Corousel />
-                    </div>
-                )}
-            </NamespacesConsumer>
+            <div className="hero">
+                <Corousel />
+            </div>
         );
     }
 }
 
-export default Hero;
+export default withTranslation()(Hero);

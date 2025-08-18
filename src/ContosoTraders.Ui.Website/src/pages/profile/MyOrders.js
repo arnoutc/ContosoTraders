@@ -11,11 +11,11 @@ import {
   FormControl,
   makeStyles,
   TextField,
-} from "@material-ui/core";
-import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Visibility from "@material-ui/icons/Visibility";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import { DeleteOutline } from "@mui/icons-material";
+import { VisibilityOff } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
+import { ExpandMore } from "@mui/icons-material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -291,7 +291,7 @@ const MyOrders = () => {
                         helperText={formik.touched.dob && formik.errors.dob}
                         endAdornment={
                           <InputAdornment position="end">
-                            <ExpandMoreIcon />
+                            <ExpandMore />
                           </InputAdornment>
                         }
                         style={{

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { withRouter } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { connect } from 'react-redux';
 import Electrical from "../../assets/images/home_electrical.jpg";
 import Garden from "../../assets/images/home_gardencenter.jpg";
@@ -129,6 +129,20 @@ class HomeContainer extends Component {
     }
 }
 
+function HomeContainerWrapper(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = useParams();
+    return (
+        <HomeContainer
+            {...props}
+            navigate={navigate}
+            location={location}
+            params={params}
+        />
+    );
+}
+
 const mapStateToProps = state => state.login;
 
-export default withRouter(connect(mapStateToProps)(HomeContainer));
+export default connect(mapStateToProps)(HomeContainerWrapper);

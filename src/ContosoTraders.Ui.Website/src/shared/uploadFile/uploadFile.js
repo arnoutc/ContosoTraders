@@ -1,29 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { connect } from 'react-redux';
-import { withRouter } from "react-router-dom";
-import Alert from "react-s-alert";
+import { useSnackbar } from 'notistack';
 import { ProductService } from '../../services';
-
-import SearchIconNew from '../../assets/images/original/Contoso_Assets/product_page_assets/upload_icon.svg'
-import { DropzoneArea } from 'material-ui-dropzone'
+import SearchIconNew from '../../assets/images/original/Contoso_Assets/product_page_assets/upload_icon.svg';
+import { useDropzone } from 'react-dropzone';
+import { useNavigate, useLocation } from "react-router-dom";
 
 class UploadFile extends Component {
     constructor(props) {
         super(props);
+        this.dropzoneRef = createRef();
         this.uploadFile = this.uploadFile.bind(this);
     }
 
-    // componentDidMount() {
-    //     // const html = '<label className="upload__label" htmlFor="upload_image"><img src='+`${SearchIconNew}`+' alt="upload" /><span className="upload__info"><span className="upload__subtitle fs-14" style="color: black, fontSize: 14px">Drag an image or upload a file</span><span className="upload__title"></span></span></label>';
-    //     // document.getElementsByClassName('MuiDropzoneArea-root')[0].innerHTML += html;
-    // }
-
-    uploadFile(e) {
-        const file = e[0];
+    uploadFile(acceptedFiles) {
+        const file = acceptedFiles[0];
         if (file) {
             const formData = new FormData();
             formData.append("file", file);
-
             ProductService.getRelatedProducts(formData, this.props.userInfo.token)
                 .then((relatedProducts) => {
                     if (relatedProducts.length > 1) {
@@ -38,48 +32,59 @@ class UploadFile extends Component {
                     }
                 })
                 .catch(() => {
-                    Alert.error("There was an error uploading the image, please try again", {
-                        position: "top",
-                        effect: "scale",
-                        beep: true,
-                        timeout: 6000,
+                    this.props.enqueueSnackbar("There was an error uploading the image, please try again", {
+                        variant: 'error',
+                        anchorOrigin: { vertical: 'top', horizontal: 'center' },
+                        autoHideDuration: 6000,
                     });
                 });
         }
     }
 
-    resetFileValue(e) {
-        e.target.value = null;
+    renderDropzone() {
+        // react-dropzone recommends using hooks, but here's a class-based wrapper using a function component
+        const { title, subtitle } = this.props;
+
+        const Dropzone = (props) => {
+            const { getRootProps, getInputProps, isDragActive } = useDropzone({
+                accept: { 'image/jpeg': [], 'image/png': [], 'image/bmp': [] },
+                onDrop: this.uploadFile,
+                multiple: false,
+                maxFiles: 1,
+            });
+
+            return (
+                <div {...getRootProps()} className="custom-dropzone" style={{
+                    border: "2px dashed #ccc",
+                    padding: "24px",
+                    textAlign: "center",
+                    borderRadius: "8px",
+                    cursor: "pointer"
+                }}>
+                    <input {...getInputProps()} />
+                    <label className="upload__label" htmlFor="upload_image">
+                        <img src={SearchIconNew} alt="upload" style={{ marginBottom: "16px" }} />
+                        <span className="upload__info">
+                            {subtitle ? <span className="upload__subtitle fs-14" style={{ color: 'black', fontSize: '14px' }}>{subtitle}</span> : null}
+                            <span className="upload__title">{title}</span>
+                        </span>
+                    </label>
+                    <div style={{ marginTop: "16px", color: "#888" }}>
+                        {isDragActive
+                            ? "Drop the files here..."
+                            : "Drag 'n' drop an image here, or click to select one"}
+                    </div>
+                </div>
+            );
+        };
+
+        return <Dropzone />;
     }
 
     render() {
-        const { title, subtitle } = this.props;
         return (
             <form className="upload">
-                <Alert stack={{ limit: 1 }} />
-                <DropzoneArea
-                    showPreviews={false}
-                    id="searchByImage"
-                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                    onChange={this.uploadFile.bind(this)}
-                    filesLimit={1}
-                />
-                {/* <input
-                    className="upload__input"
-                    id="upload_image"
-                    name="upload_image"
-                    accept="image/png, image/jpeg"
-                    type="file"
-                    onChange={this.uploadFile}
-                    onClick={this.resetFileValue}
-                /> */}
-                <label className="upload__label" htmlFor="upload_image">
-                    <img src={SearchIconNew} alt="upload" />
-                    <span className="upload__info">
-                        {subtitle ? <span className="upload__subtitle fs-14" style={{ color: 'black', fontSize: '14px' }}>{subtitle}</span> : null}
-                        <span className="upload__title">{title}</span>
-                    </span>
-                </label>
+                {this.renderDropzone()}
             </form>
         );
     }
@@ -87,4 +92,13 @@ class UploadFile extends Component {
 
 const mapStateToProps = state => state.login;
 
-export default connect(mapStateToProps)(withRouter(UploadFile));
+// Wrapper to inject navigate (and optionally location, params) as props
+function UploadFileWrapper(props) {
+    const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate();
+    const location = useLocation();
+    // ...you can add useParams if needed
+    return <UploadFile {...props} navigate={navigate} location={location} enqueueSnackbar={enqueueSnackbar} />;
+}
+
+export default connect(mapStateToProps)(UploadFileWrapper);

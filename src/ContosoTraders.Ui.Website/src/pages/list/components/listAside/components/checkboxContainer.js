@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { NamespacesConsumer } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import Checkbox from "./checkbox";
 
@@ -20,36 +20,32 @@ class CheckboxContainer extends Component {
     };
 
     render() {
-        const { data, title } = this.props;
+        const { data, title, t } = this.props;
         const dataType = this.props.id;
 
         return (
-            <NamespacesConsumer>
-                {t => (
-                    <div className="filter">
-                        <legend className="filter__title">{title}</legend>
-                        {data &&
-                            data.map((item, key) => (
-                                <div className="filter__item" key={key}>
-                                    <Checkbox
-                                        name={item.name}
-                                        checked={this.state.checkedItems.get(item.name)}
-                                        onChange={(e)=>{
-                                            this.handleChange(e, dataType)
-                                        }}
-                                        code={`${item.code || item.id}`}
-                                    />
-                                    <label className="label" htmlFor={`${item.code || item.id}`}>
-                                        {item.name}
-                                    </label>
-                                </div>
-                            ))}
-                        <div className="filter__more">{t("list.aside.more")}</div>
-                    </div>
-                )}
-            </NamespacesConsumer>
+            <div className="filter">
+                <legend className="filter__title">{title}</legend>
+                {data &&
+                    data.map((item, key) => (
+                        <div className="filter__item" key={key}>
+                            <Checkbox
+                                name={item.name}
+                                checked={this.state.checkedItems.get(item.name)}
+                                onChange={(e)=>{
+                                    this.handleChange(e, dataType)
+                                }}
+                                code={`${item.code || item.id}`}
+                            />
+                            <label className="label" htmlFor={`${item.code || item.id}`}>
+                                {item.name}
+                            </label>
+                        </div>
+                    ))}
+                <div className="filter__more">{t("list.aside.more")}</div>
+            </div>
         );
     }
 }
 
-export default CheckboxContainer;
+export default withTranslation()(CheckboxContainer);

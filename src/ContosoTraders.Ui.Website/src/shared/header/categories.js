@@ -1,24 +1,19 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-// import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { useHistory } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { Menu as MenuIcon, ArrowDropDown as ArrowDropDownIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import laptopsImg from '../../assets/images/original/Contoso_Assets/Mega_menu_dropdown_assets/laptop_icon.svg';
 import controllersImg from '../../assets/images/original/Contoso_Assets/Mega_menu_dropdown_assets/controllers_icon.svg';
 import desktopsImg from '../../assets/images/original/Contoso_Assets/Mega_menu_dropdown_assets/desktops_icon.svg';
 import mobilesImg from '../../assets/images/original/Contoso_Assets/Mega_menu_dropdown_assets/mobiles_icon.svg';
 import monitorImg from '../../assets/images/original/Contoso_Assets/Mega_menu_dropdown_assets/monitor_icon.svg';
-const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
-})((props) => (
+
+const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
@@ -32,37 +27,30 @@ const StyledMenu = withStyles({
     }}
     {...props}
   />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    '&:focus': {
-      backgroundColor: '#fff',
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: '#000',
-      },
-    },
-    '&:hover' : {
-      backgroundColor: '#f8f8f8'
-    }
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    border: '1px solid #d3d4d5',
   },
-}))(MenuItem);
+}));
+
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  '&:focus': {
+    backgroundColor: '#fff',
+    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+      color: '#000',
+    },
+  },
+  '&:hover': {
+    backgroundColor: '#f8f8f8',
+  },
+}));
 
 export default function CustomizedMenus() {
-  const history  = useHistory();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const redirectUrl = (url) => {
-    history.push(url)
-  }
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const redirectUrl = (url) => navigate(url);
 
   return (
     <div>
@@ -88,46 +76,38 @@ export default function CustomizedMenus() {
       >
         <StyledMenuItem onClick={() => redirectUrl('/list/laptops')}>
           <ListItemIcon>
-            <img src={laptopsImg} alt=""/>
+            <img src={laptopsImg} alt="" />
           </ListItemIcon>
           <ListItemText primary="Laptops" />
           <ListItemIcon className='justify-content-end'></ListItemIcon>
         </StyledMenuItem>
         <StyledMenuItem onClick={() => redirectUrl('/list/controllers')}>
           <ListItemIcon>
-            <img src={controllersImg} alt=""/>
+            <img src={controllersImg} alt="" />
           </ListItemIcon>
           <ListItemText primary="Controllers" />
-          <ListItemIcon className='justify-content-end'>
-            {/* <ArrowForwardIosIcon fontSize="small"/> */}
-          </ListItemIcon>
+          <ListItemIcon className='justify-content-end'></ListItemIcon>
         </StyledMenuItem>
         <StyledMenuItem onClick={() => redirectUrl('/list/desktops')}>
           <ListItemIcon>
-            <img src={desktopsImg} alt=""/>
+            <img src={desktopsImg} alt="" />
           </ListItemIcon>
           <ListItemText primary="Desktops" />
-          <ListItemIcon className='justify-content-end'>
-            {/* <ArrowForwardIosIcon fontSize="small"/> */}
-          </ListItemIcon>
+          <ListItemIcon className='justify-content-end'></ListItemIcon>
         </StyledMenuItem>
         <StyledMenuItem onClick={() => redirectUrl('/list/mobiles')}>
           <ListItemIcon>
-            <img src={mobilesImg} alt=""/>
+            <img src={mobilesImg} alt="" />
           </ListItemIcon>
           <ListItemText primary="Mobiles" />
-          <ListItemIcon className='justify-content-end'>
-            {/* <ArrowForwardIosIcon fontSize="small"/> */}
-          </ListItemIcon>
+          <ListItemIcon className='justify-content-end'></ListItemIcon>
         </StyledMenuItem>
         <StyledMenuItem onClick={() => redirectUrl('/list/monitors')}>
           <ListItemIcon>
-            <img src={monitorImg} alt=""/>
+            <img src={monitorImg} alt="" />
           </ListItemIcon>
           <ListItemText primary="Monitor" />
-          <ListItemIcon className='justify-content-end'>
-            {/* <ArrowForwardIosIcon fontSize="small"/> */}
-          </ListItemIcon>
+          <ListItemIcon className='justify-content-end'></ListItemIcon>
         </StyledMenuItem>
       </StyledMenu>
     </div>

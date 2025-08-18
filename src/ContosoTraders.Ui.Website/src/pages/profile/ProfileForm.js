@@ -4,8 +4,8 @@ import {
   Button,
   Grid,
   Avatar,
-} from "@material-ui/core";
-import NavigateNext from "@material-ui/icons/NavigateNext";
+} from "@mui/material";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import PersonalInformation from "./PersonalInformation";
 import MyWishlist from "./MyWishlist";
 import MyOrders from "./MyOrders";
@@ -56,7 +56,7 @@ const FormProfile = () => {
                 </div>
                 <div className="item-content">Personal Information</div>
                 <div className="item-arrow">
-                  <NavigateNext className="sidebarnavIcons" />
+                  <NavigateNextIcon className="sidebarnavIcons" />
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ const FormProfile = () => {
                 </div>
                 <div className="item-content">My Orders</div>
                 <div className="item-arrow">
-                  <NavigateNext className="sidebarnavIcons" />
+                  <NavigateNextIcon className="sidebarnavIcons" />
                 </div>
               </div>
 
@@ -94,7 +94,7 @@ const FormProfile = () => {
                 </div>
                 <div className="item-content">My Wishlist</div>
                 <div className="item-arrow">
-                  <NavigateNext className="sidebarnavIcons" />
+                  <NavigateNextIcon className="sidebarnavIcons" />
                 </div>
               </div>
 
@@ -113,7 +113,7 @@ const FormProfile = () => {
                 </div>
                 <div className="item-content">My Address Book</div>
                 <div className="item-arrow">
-                  <NavigateNext className="sidebarnavIcons" />
+                  <NavigateNextIcon className="sidebarnavIcons" />
                 </div>
               </div>
             </div>

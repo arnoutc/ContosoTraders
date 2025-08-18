@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
 import { LoadingSpinner } from '../../shared/index';
-
 import List from './list';
 import { ProductService } from '../../services';
+import { useParams } from 'react-router-dom';
 
 class ListContainer extends Component {
   constructor(props) {
@@ -15,7 +14,6 @@ class ListContainer extends Component {
       queryString: '',
       loading: true,
     };
-
     this.queryString = [
       {
         brand: [],
@@ -27,14 +25,14 @@ class ListContainer extends Component {
   }
 
   async componentDidMount() {
-    const filter = this.props.match.params.code || '';
+    const filter = this.props.params.code || '';
     const filteredProductsPageData = await this.getProductData(filter);
     this.setPageState(filteredProductsPageData);
   }
 
   async componentDidUpdate(prevProps) {
-    const code = this.props.match.params.code;
-    if (code !== prevProps.match.params.code) {
+    const code = this.props.params.code;
+    if (code !== prevProps.params.code) {
       const filteredProductsPageData = await this.getProductData(code);
       this.setPageState(filteredProductsPageData);
     }
@@ -43,7 +41,6 @@ class ListContainer extends Component {
   async getProductData(type) {
     const filter = type === '' ? {} : (this.queryString.type = { type });
     const filteredProductsPageData = await ProductService.getFilteredProducts(filter);
-
     return filteredProductsPageData.data;
   }
 
@@ -57,13 +54,12 @@ class ListContainer extends Component {
     this.setState({ productsList, typesList, brandsList, loading: false });
   }
 
-    onFilterChecked = async (e, value) => {
-        const isChecked = e.target.checked;
-        const dataType = e.target.getAttribute('id');
-        this.setQueryStringState(isChecked, dataType, value);
-
-        const apiCall = await ProductService.getFilteredProducts(this.queryString);
-        this.setState({ productsList: apiCall.data.products });
+  onFilterChecked = async (e, value) => {
+    const isChecked = e.target.checked;
+    const dataType = e.target.getAttribute('id');
+    this.setQueryStringState(isChecked, dataType, value);
+    const apiCall = await ProductService.getFilteredProducts(this.queryString);
+    this.setState({ productsList: apiCall.data.products });
   };
 
   setQueryStringState(isChecked, dataType, value) {
@@ -71,8 +67,7 @@ class ListContainer extends Component {
       this.brand.push(dataType);
       this.queryString.brand = this.brand;
       this.queryString.type = this.queryString.type.type === undefined ?
-            this.queryString.type : this.queryString.type.type;
-
+        this.queryString.type : this.queryString.type.type;
     } else {
       let index = this.queryString[value].indexOf(dataType);
       if (index !== -1) {
@@ -100,4 +95,10 @@ class ListContainer extends Component {
   }
 }
 
-export default withRouter(ListContainer);
+// Wrapper function to inject route params
+function ListContainerWrapper(props) {
+  const params = useParams();
+  return <ListContainer {...props} params={params} />;
+}
+
+export default ListContainerWrapper;
