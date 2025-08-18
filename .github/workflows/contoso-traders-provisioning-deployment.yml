@@ -358,7 +358,7 @@ jobs:
       - name: npm install
         run: |
           rm -rf node_modules package-lock.json
-          npm install
+          npm install --legacy-peer-deps
         working-directory: src/ContosoTraders.Ui.Website
       - name: npm run build
         run: npm run build
