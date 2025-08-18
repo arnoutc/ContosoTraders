@@ -1,4 +1,4 @@
-import { Persona, PersonaSize } from "office-ui-fabric-react";
+import { Persona, PersonaSize } from "@fluentui/react";
 import { Icon } from "@fluentui/react/lib/Icon";
 
 export default class RemoteParticipantCard extends React.Component {

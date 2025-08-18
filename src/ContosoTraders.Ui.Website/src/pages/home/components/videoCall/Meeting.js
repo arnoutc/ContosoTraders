@@ -2,7 +2,7 @@ import React from "react";
 import { CallClient, LocalVideoStream } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { CommunicationIdentityClient } from "@azure/communication-administration";
-import { PrimaryButton, TextField } from "office-ui-fabric-react";
+import { PrimaryButton, TextField } from "@fluentui/react";
 import CallCard from "./CallCard";
 import { createClientLogger, setLogLevel } from "@azure/logger";
 import queryString from "query-string";
