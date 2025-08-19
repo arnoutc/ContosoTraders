@@ -15,7 +15,7 @@ const initialDefaultState = {
 
 const defaultState = userInfo ? { userInfo } : { ...initialDefaultState };
 
-export default (state = defaultState, action) => {
+const loginReducer = (state, action) => {
     switch (action.type) {
         case FORM_EMAIL:
             return { ...state, ...action };
@@ -27,3 +27,5 @@ export default (state = defaultState, action) => {
             return defaultState;
     }
 };
+
+export default loginReducer;

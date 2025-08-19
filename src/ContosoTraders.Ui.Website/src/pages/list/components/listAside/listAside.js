@@ -54,7 +54,6 @@ class ListAside extends Component {
     }
 
     render() {
-        const { t } = this.props; // now t is available via props
         return (
             <aside className="list__aside">
                 <SidebarAccordion 

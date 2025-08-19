@@ -10,8 +10,6 @@ class Hero extends Component {
     }
 
     render() {
-        // t is injected into props by withTranslation
-        const { t } = this.props;
         return (
             <div className="hero">
                 <Corousel />

@@ -51,15 +51,16 @@ const SearchBarDiv = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconDiv = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+
+// const SearchIcon = styled('div')(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: '100%',
+//   position: 'absolute',
+//   pointerEvents: 'none',
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
 const SectionDesktop = styled('div')(({ theme }) => ({
   display: 'none',
