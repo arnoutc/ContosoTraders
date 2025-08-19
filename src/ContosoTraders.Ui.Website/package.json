@@ -60,6 +60,8 @@
   ],
   "devDependencies": {
     "@playwright/test": "^1.29.0",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
     "crypto-browserify": "^3.12.1",
     "eslint-config-react-app": "latest",
     "os-browserify": "^0.3.0",
