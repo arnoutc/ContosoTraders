@@ -9,9 +9,9 @@ import {
   FormLabel,
   InputAdornment,
   FormControl,
-  makeStyles,
   TextField,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { VisibilityOff } from "@mui/icons-material";
 import { Visibility } from "@mui/icons-material";
 
@@ -23,7 +23,7 @@ import { ExpandMore } from "@mui/icons-material";
 // const phoneRegExp =
 //   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
- const SUPPORTED_FORMATS = ['png','jpg','bmp','tiff','gif']
+const SUPPORTED_FORMATS = ['png','jpg','bmp','tiff','gif']
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")

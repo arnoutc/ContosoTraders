@@ -9,6 +9,7 @@ import ConfigService from './services/configService';
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { Buffer } from 'buffer';
+import { BrowserRouter } from "react-router-dom";
 
 window.Buffer = Buffer; // Makes Buffer available globally in the browser
 
@@ -17,7 +18,7 @@ const history = createBrowserHistory({ basename: "" });
     await ConfigService.loadSettings();
 
     ReactDOM.render(
-        <Provider store={store}><Router history={history}><App /></Router></Provider>,
+        <Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,
         document.getElementById('root')
     );
 })();
