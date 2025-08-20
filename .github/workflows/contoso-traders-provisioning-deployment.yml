@@ -357,6 +357,7 @@ jobs:
           PRODUCTS_API_ENDPOINT: ${{ steps.get-productsApiEndpoint.outputs.productsApiEndpoint }}
       - name: npm install
         run: |
+          rm -rf node_modules/.cache
           rm -rf node_modules package-lock.json
           npm install --legacy-peer-deps
         working-directory: src/ContosoTraders.Ui.Website
