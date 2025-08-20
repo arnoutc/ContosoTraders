@@ -2,7 +2,7 @@
 
 This deployment guide is designed to help you deploy the Inventory Management System for Contoso Traders, built using Microsoft Power Platform. Inventory Management Systems is an internal application designed to manage product catalogue, stock, price etc for products listed on Contoso Traders. 
 
- Microsoft Power Platform features, including Power Apps & Power Autoamte is used for developing and hosting this application, using Power Platforn's low-code/no-code approach towards application development. 
+ Microsoft Power Platform features, including Power Apps & Power Automate is used for developing and hosting this application, using Power Platforn's low-code/no-code approach towards application development. 
 
  Microsoft Power Apps is a low-code platform that allows users to easily create custom business applications for various scenarios. Power Automate is a tool that enables users to automate business processes and workflows. Together, these tools can be used to streamline and improve various business operations, such as data entry, data management, and communication between different business systems. 
  
@@ -30,7 +30,7 @@ For the purpose of demonstration, you should have following users in your M365 t
 
 1. Inventory Management Executive, who will be using the PowerApp to create/update the products inventory. 
 
-2. Inventory Managerm, who will reviewing the inventory and approve changes. 
+2. Inventory Manager, who will reviewing the inventory and approve changes. 
 
 
 You can create new user accounts or use existing accounts. Please follow [this documentation](https://learn.microsoft.com/en-us/microsoft-365/admin/add-users/add-users?view=o365-worldwide). to learn more about creating users and assigning licenses. 
