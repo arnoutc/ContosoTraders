@@ -8,6 +8,9 @@ import store from './store';
 import ConfigService from './services/configService';
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { Buffer } from 'buffer';
+
+window.Buffer = Buffer; // Makes Buffer available globally in the browser
 
 const history = createBrowserHistory({ basename: "" });
 (async () => {
